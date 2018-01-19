@@ -4,7 +4,9 @@ import { Store } from 'redux';
 import { RootState } from './store';
 import * as auth from './authentification';
 import './App.css';
-import LoginPage from './authentification/components/LoginPage';
+// import LoginPage from './authentification/components/LoginPage';
+import RecipesPage from './recipes/components/RecipesPage';
+import Layout from './shell/components/Layout';
 
 type OwnProps = {
   store: Store<RootState>
@@ -46,8 +48,9 @@ class App extends React.Component<Props> {
             
             </Switch>
           </Router> */}
-
-        <LoginPage />
+        <Layout>
+          <RecipesPage />
+        </Layout>
 
       </Provider>
     );
