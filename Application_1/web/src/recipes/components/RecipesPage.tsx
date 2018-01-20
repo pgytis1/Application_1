@@ -14,13 +14,18 @@ const styles = (theme: any) => ({
         padding: 16,
         textAlign: 'center',
         color: theme.palette.text.secondary,
-    }
+        margin: 16
+    },
+    alignCenter: {
+        textAlign: 'center',
+        marginTop: 10
+    },
 });
 
 interface OwnProps {
 }
 
-type Props = OwnProps & WithStyles<'root' | 'paper'>;
+type Props = OwnProps & WithStyles<'root' | 'paper' | 'alignCenter'>;
 
 class Recipes extends React.Component<Props> {
     constructor(props: Props) {
@@ -30,8 +35,8 @@ class Recipes extends React.Component<Props> {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Grid container={true} spacing={40}>
-                    <Grid xs={12} md={1}  item={true} className={classes.paper}>
+                <Grid container={true} spacing={40} >
+                    <Grid xs={12} md={1} item={true} className={classes.alignCenter}>
                         <Navigation />
                     </Grid>
                     <Grid xs={12} md={true} item={true}>
