@@ -21,7 +21,7 @@ interface OwnProps { }
 
 type Props = OwnProps & WithStyles<'button' | 'avatar'>;
 
-class Navigation extends React.Component<Props> {
+class DaysNav extends React.Component<Props> {
     render() {
         const { classes } = this.props;
         return (
@@ -54,4 +54,4 @@ class Navigation extends React.Component<Props> {
     }
 }
 
-export default withStyles(styles)(Navigation);
+export default withStyles(styles)(DaysNav);

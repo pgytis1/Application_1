@@ -1,26 +1,16 @@
 import * as React from 'react';
 import { withStyles, WithStyles, Theme } from 'material-ui/styles';
 import * as classNames from 'classnames';
+import DrawerNav from './DrawerNav';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
-// import { mailFolderListItems, otherMailFolderListItems } from './tileData';
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
-import DraftsIcon from 'material-ui-icons/Drafts';
-// import StarIcon from 'material-ui-icons/Star';
-import SendIcon from 'material-ui-icons/Send';
-// import MailIcon from 'material-ui-icons/Mail';
-import DeleteIcon from 'material-ui-icons/Delete';
-// import ReportIcon from 'material-ui-icons/Report';
-import deepOrange from 'material-ui/colors/deepOrange';
 
 const drawerWidth = 240;
 
@@ -28,11 +18,8 @@ const styles = (theme: Theme) => ({
     root: {
         width: '100%',
         height: '100%',
-        // marginTop: theme.spacing.unit * 3,
         zIndex: 1,
         overflow: 'hidden' as any,
-        // flexGrow: 1,
-        // padding: '0px 5px 0px 5px',
     },
     appFrame: {
         position: 'relative' as any,
@@ -101,41 +88,27 @@ const styles = (theme: Theme) => ({
             height: 'calc(100% - 64px)',
             marginTop: 64,
         },
-    },
-    paper: {
-        padding: 16,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        margin: 16
-    },
-    button: {
-        margin: 0,
-        padding: 0
-    },
-    avatar: {
-        margin: 10,
-        color: '#fff',
-        backgroundColor: deepOrange[500],
-    },
-    alignCenter: {
-        textAlign: 'center',
-        marginTop: 10
-    },
+    }
 });
 
-type OwnProps = {
-    classes?: any
-};
+interface OwnProps {
+}
+
+interface OwnState {
+    open: boolean;
+}
 
 type Props = OwnProps & WithStyles<'content' | 'drawerHeader' | 'drawerInner' | 'drawerPaperClose'
-    | 'drawerPaper' | 'hide' | 'menuButton' | 'appBarShift' | 'appBar' | 'appFrame' | 'root' | 'paper' | 'button'
-    | 'alignCenter'
-    | 'avatar'>;
+    | 'drawerPaper' | 'hide' | 'menuButton' | 'appBarShift' | 'appBar' | 'appFrame' | 'root'>;
 
-class Layout extends React.Component<Props> {
-    state = {
-        open: false,
-    };
+class Layout extends React.Component<Props, OwnState> {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            open: false
+        };
+    }
 
     handleDrawerOpen = () => {
         this.setState(() => ({ open: true }));
@@ -180,34 +153,8 @@ class Layout extends React.Component<Props> {
                                 </IconButton>
                             </div>
                             <Divider />
-                            <List className={classes.list}>
-                                <ListItem button={true}>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Inbox" />
-                                </ListItem>
-                                <ListItem button={true}>
-                                    <ListItemIcon>
-                                        <DeleteIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Starred" />
-                                </ListItem>
-                                <ListItem button={true}>
-                                    <ListItemIcon>
-                                        <SendIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Send mail" />
-                                </ListItem>
-                                <ListItem button={true}>
-                                    <ListItemIcon>
-                                        <DraftsIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Drafts" />
-                                </ListItem>
-                            </List>
+                            <DrawerNav />
                             <Divider />
-                            {/* <List className={classes.list}>{otherMailFolderListItems}</List> */}
                         </div>
                     </Drawer>
                     <main className={classes.content}>

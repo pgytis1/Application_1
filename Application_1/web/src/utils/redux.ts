@@ -1,0 +1,1 @@
+export const returnTypeOf = <RT>(expression: (...params: {}[]) => RT): RT => ({}) as RT;

@@ -1,6 +1,17 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as m from '../model';
+import { withStyles } from 'material-ui/styles';
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import TextField from 'material-ui/TextField';
+import { loginStyles as styles, LoginWithStyles } from '../styles';
+
+const mapStateToProps = () => {
+    return {};
+};
 
 type OwnState = {
     email: string;
@@ -9,11 +20,7 @@ type OwnState = {
 
 type DispatchProps = typeof m.actions;
 
-type Props = DispatchProps;
-
-const mapStateToProps = () => {
-    return {};
-};
+type Props = DispatchProps & LoginWithStyles;
 
 class LoginPage extends React.Component<Props, OwnState> {
     constructor(props: Props) {
@@ -46,20 +53,42 @@ class LoginPage extends React.Component<Props, OwnState> {
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <div className="container d-flex justify-content-center" style={{ marginTop: '120px' }}>
-                <div className="col-6 col-md-5 col-lg-4 col-xl-3">
-                    <h1 className="text-center pb-5">GIIS</h1>
-                    <div className="form-group">
-                        <input className="form-control" type="text" placeholder="El. paštas" autoFocus={true} onChange={(e) => this.handleEmailChange(e)} />
-                        <input className="form-control" type="text" placeholder="Slaptažodis" onChange={(e) => this.handlePasswordChange(e)} />
-                        <button type="submit" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Prisijungti</button>
-                    </div>
-                </div>
-            </div>
-
+            <Grid container={true} alignItems="center" justify="center">
+                <Grid item={true} xs={10} sm={6} md={4} >
+                    <Card className={classes.card} raised={true}>
+                        <CardContent>
+                            <Typography align="center"><b>Prisijungimas</b></Typography>
+                            <TextField
+                                id="email"
+                                label="El. paštas"
+                                onChange={(e) => this.handleEmailChange(e)}
+                                value={this.state.email}
+                                margin="normal"
+                                fullWidth={true}
+                            />
+                            <TextField
+                                id="password"
+                                label="Slaptažodis"
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={(e) => this.handlePasswordChange(e)}
+                                value={this.state.password}
+                                margin="normal"
+                                fullWidth={true}
+                            />
+                        </CardContent>
+                        <CardActions>
+                            <Button raised={true} color="primary">
+                                Pirmyn
+                            </Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            </Grid>
         );
     }
 }
 
-export default connect<{}, DispatchProps, {}>(mapStateToProps, m.actions)(LoginPage);
+export default connect<{}, DispatchProps, {}>(mapStateToProps, m.actions)(withStyles(styles)(LoginPage));

@@ -1,14 +1,12 @@
-// import * as m from './model';
+import * as m from './model';
 
-// const initialState: m.State = {
-//     userName: null
-// };
+const initialState: m.State = {
+    error: null
+};
 
-// export const reducer = (state: m.State = initialState, action: m.ActionTypes): m.State => {
-//     switch (action.type) {
-//         case m.LOGIN:
-//             return state;
-//         default:
-//             return state;
-//     }
-// };
+export const reducer = (state: m.State = initialState, action: m.ActionTypes): m.State => {
+    switch (action.type) {
+        default:
+            return state;
+    }
+};

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Navigation from './Navigation';
+import DaysNav from './DaysNav';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import { withStyles, WithStyles } from 'material-ui/styles';
@@ -22,8 +22,7 @@ const styles = (theme: any) => ({
     },
 });
 
-interface OwnProps {
-}
+interface OwnProps {}
 
 type Props = OwnProps & WithStyles<'root' | 'paper' | 'alignCenter'>;
 
@@ -37,7 +36,7 @@ class Recipes extends React.Component<Props> {
             <div className={classes.root}>
                 <Grid container={true} spacing={40} >
                     <Grid xs={12} md={1} item={true} className={classes.alignCenter}>
-                        <Navigation />
+                        <DaysNav />
                     </Grid>
                     <Grid xs={12} md={true} item={true}>
                         <Paper className={classes.paper}>xs</Paper>
@@ -46,7 +45,7 @@ class Recipes extends React.Component<Props> {
                         <Paper className={classes.paper}>xs</Paper>
                     </Grid>
                 </Grid>
-            </div >
+            </div>
         );
     }
 }

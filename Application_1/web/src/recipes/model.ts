@@ -1,4 +1,4 @@
-// import { RootState } from '../store';
+import { RootState } from '../store';
 
 // Model
 
@@ -46,6 +46,6 @@ export const actions = {
 
 // Selectors
 
-// export const selectors = {
-//     getOwn: (state: RootState) => state.auth
-// };
+export const selectors = {
+    getOwn: (state: RootState) => state.recipes
+};
