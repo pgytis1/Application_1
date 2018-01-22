@@ -1,12 +1,13 @@
 import { Theme, WithStyles } from 'material-ui/styles';
 
-type LoginStyles = 'card' | 'button';
+type LoginStyles = 'card' | 'cardActions';
 export type LoginWithStyles = WithStyles<LoginStyles>;
 export const loginStyles = (theme: Theme) => ({
     card: {
-        marginTop: 40
+        marginTop: 40,
+        paddingBottom: 60
     },
-    button: {
+    cardActions: {
         float: 'right'
     }
 });

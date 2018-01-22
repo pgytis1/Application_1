@@ -8,9 +8,12 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import { loginStyles as styles, LoginWithStyles } from '../styles';
+import { RootState } from '../../store';
+import { returnTypeOf } from '../../utils/index';
 
-const mapStateToProps = () => {
-    return {};
+const mapStateToProps = (state: RootState) => {
+    const { error } = m.selectors.getOwn(state);
+    return { error };
 };
 
 type OwnState = {
@@ -20,7 +23,10 @@ type OwnState = {
 
 type DispatchProps = typeof m.actions;
 
-type Props = DispatchProps & LoginWithStyles;
+const stateProps = returnTypeOf(mapStateToProps);
+type StateProps = typeof stateProps;
+
+type Props = DispatchProps & LoginWithStyles & StateProps;
 
 class LoginPage extends React.Component<Props, OwnState> {
     constructor(props: Props) {
@@ -39,9 +45,7 @@ class LoginPage extends React.Component<Props, OwnState> {
     }
 
     handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("xx");
         const value = e.currentTarget.value;
-        console.log(value);
         this.setState(() => ({
             password: value
         }));
@@ -49,15 +53,14 @@ class LoginPage extends React.Component<Props, OwnState> {
 
     handleSubmit = () => {
         this.props.login(this.state.email, this.state.password);
-        console.log("login", this.state.email, this.state.password);
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, error } = this.props;
         return (
             <Grid container={true} alignItems="center" justify="center">
                 <Grid item={true} xs={10} sm={6} md={4} >
-                    <Card className={classes.card} raised={true}>
+                    <Card className={classes.card} raised={true} >
                         <CardContent>
                             <Typography align="center"><b>Prisijungimas</b></Typography>
                             <TextField
@@ -67,6 +70,8 @@ class LoginPage extends React.Component<Props, OwnState> {
                                 value={this.state.email}
                                 margin="normal"
                                 fullWidth={true}
+                                type="email"
+                                error={error ? true : false}
                             />
                             <TextField
                                 id="password"
@@ -77,10 +82,12 @@ class LoginPage extends React.Component<Props, OwnState> {
                                 value={this.state.password}
                                 margin="normal"
                                 fullWidth={true}
+                                error={error ? true : false}
+                                helperText={error}                               
                             />
                         </CardContent>
-                        <CardActions>
-                            <Button raised={true} color="primary">
+                        <CardActions className={classes.cardActions}>
+                            <Button raised={true} color="primary" onClick={this.handleSubmit}>
                                 Pirmyn
                             </Button>
                         </CardActions>
@@ -91,4 +98,4 @@ class LoginPage extends React.Component<Props, OwnState> {
     }
 }
 
-export default connect<{}, DispatchProps, {}>(mapStateToProps, m.actions)(withStyles(styles)(LoginPage));
+export default connect<StateProps, DispatchProps, {}>(mapStateToProps, m.actions)(withStyles(styles)(LoginPage));

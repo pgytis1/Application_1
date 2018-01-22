@@ -40,17 +40,24 @@ namespace Application_1.Controllers
                 return Ok(new JwtResponse { Jwt = BuildToken(user) });
             }
 
-            return NotFound("Invalid login attempt.");
+            return NotFound("Neteisingas el. pašto adresas ar slaptažodis");
         }
 
         private string BuildToken(IdentityUser user)
         {
+
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
               _configuration["Jwt:Issuer"],
               _configuration["Jwt:Issuer"],
+              claims,
               expires: DateTime.Now.AddMinutes(240),
               signingCredentials: creds);
 
@@ -71,10 +78,11 @@ namespace Application_1.Controllers
             return Ok(result.Errors);
         }
         [Authorize]
-        [HttpGet("autorize")]
-        public async Task<IActionResult> Protected([FromBody]RegisterRequestModel model)
+        [HttpGet("getMe")]
+        public async Task<IActionResult> GetMe()
         {
-            return Ok("protected");
+            var userName = User.FindFirst("email")?.Value;
+            return Ok(new { userName });
         }
         
         class JwtResponse

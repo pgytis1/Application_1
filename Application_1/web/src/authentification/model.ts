@@ -3,28 +3,49 @@ import { RootState } from '../store';
 // Model
 export interface State {
     userName: string | null;
+    error: string | null;
 }
 
 // Action types
 
 export const LOGIN = 'auth/LOGIN';
+export const LOGIN_SUCESS = 'auth/LOGIN_SUCESS';
+export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 
 // Actions
 
-export type Login = {
+export interface LoginAction {
     type: typeof LOGIN;
-    payload: { userName: string, password: string }
-};
+    payload: { userName: string, password: string };
+}
 
-export type ActionTypes = Login;
+export interface LoginSuccessAction {
+    type: typeof LOGIN_SUCESS;
+    payload: { userName: string };
+}
+
+export interface LoginFailureAction {
+    type: typeof LOGIN_FAILURE;
+    payload: { error: string };
+}
+
+export type ActionTypes = LoginAction | LoginSuccessAction | LoginFailureAction;
 
 // Actions creators
 
 export const actions = {
-    login: (userName: string, password: string): Login => ({
+    login: (userName: string, password: string): LoginAction => ({
         type: LOGIN,
         payload: { userName, password }
-    })
+    }),
+    loginSuccess: (userName: string): LoginSuccessAction => ({
+        type: LOGIN_SUCESS,
+        payload: { userName }
+    }),
+    loginFailure: (error: string): LoginFailureAction => ({
+        type: LOGIN_FAILURE,
+        payload: { error }
+    }),
 };
 
 // Selectors

@@ -15,6 +15,7 @@ using Application_1.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Http;
 
 namespace Application_1
 {
@@ -31,7 +32,6 @@ namespace Application_1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MainContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<MainContext>()
                 .AddDefaultTokenProviders();
@@ -40,7 +40,7 @@ namespace Application_1
             {
                 // Password settings
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = 5;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
