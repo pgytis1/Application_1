@@ -2,6 +2,7 @@ import { RootState } from '../store';
 
 // Model
 export interface State {
+    id: string | null;
     userName: string | null;
     error: string | null;
 }
@@ -21,7 +22,7 @@ export interface LoginAction {
 
 export interface LoginSuccessAction {
     type: typeof LOGIN_SUCESS;
-    payload: { userName: string };
+    payload: { id: string, userName: string };
 }
 
 export interface LoginFailureAction {
@@ -38,9 +39,9 @@ export const actions = {
         type: LOGIN,
         payload: { userName, password }
     }),
-    loginSuccess: (userName: string): LoginSuccessAction => ({
+    loginSuccess: (id: string, userName: string): LoginSuccessAction => ({
         type: LOGIN_SUCESS,
-        payload: { userName }
+        payload: { id, userName }
     }),
     loginFailure: (error: string): LoginFailureAction => ({
         type: LOGIN_FAILURE,

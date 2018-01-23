@@ -6,9 +6,12 @@ import * as m from './model';
 function* login(action: m.LoginAction) {
     try {
         const { userName, password } = action.payload;
-        const res = yield call(api.auth.login(userName, password));
-        security.setToken(res.jwt);  
+        const res = yield call(api.auth.login, userName, password);
+        security.setToken(res.jwt);
+        const user = yield call(api.auth.getMe);
+        yield put(m.actions.loginSuccess(user.id, user.userName));
     } catch (ex) {
+        security.setToken('');
         yield put(m.actions.loginFailure(ex.response.text));
     }
 }

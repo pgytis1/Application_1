@@ -1,6 +1,7 @@
 import * as m from './model';
 
 const initialState: m.State = {
+    id: null,
     userName: null,
     error: null
 };
@@ -10,12 +11,16 @@ export const reducer = (state: m.State = initialState, action: m.ActionTypes): m
         case m.LOGIN_SUCESS:
             return {
                 ...state,
-                userName: action.payload.userName
+                id: action.payload.id,
+                userName: action.payload.userName,
+                error: null
             };
         case m.LOGIN_FAILURE:
             return {
                 ...state,
-                error: action.payload.error
+                error: action.payload.error,
+                userName: null,
+                id: null
             };
         default:
             return state;

@@ -1,7 +1,7 @@
 import apiClient from './apiClient';
 
-export const login = (email: string, password: string) => (): Promise<{ jwt: string }> | undefined => apiClient
+export const login = (email: string, password: string): Promise<{ jwt: string }> | undefined => apiClient
     .post('api/account/login', { email, password });
 
-export const getBooks = () => () => apiClient
-    .get('api/book');
+export const getMe = (): Promise<{ userName: string, password: string }> => apiClient
+    .get('api/account/getMe');

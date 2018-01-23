@@ -1,6 +1,6 @@
-﻿using Application_1.DTO.Request;
+﻿using Application_1.DTO.Account;
+using Application_1.IServices;
 using Application_1.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,75 +18,41 @@ namespace Application_1.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _configuration;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        private readonly IAccountService accountService;
+        public AccountController(IAccountService accountService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _configuration = configuration;
+            this.accountService = accountService;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginRequestModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-            if (result.Succeeded)
+            var response = await accountService.Login(model);
+            if (response != null)
             {
-                var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == model.Email);
-                return Ok(new JwtResponse { Jwt = BuildToken(user) });
+                return Ok(response);
             }
 
             return NotFound("Neteisingas el. pašto adresas ar slaptažodis");
         }
 
-        private string BuildToken(IdentityUser user)
-        {
-
-            var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-              _configuration["Jwt:Issuer"],
-              _configuration["Jwt:Issuer"],
-              claims,
-              expires: DateTime.Now.AddMinutes(240),
-              signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterRequestModel model)
         {
-            var user = new User { UserName = model.Email, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
+            var response = await accountService.Register(model);
+            if (response != null)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return Ok(new JwtResponse { Jwt = BuildToken(user) });
+                return Ok(response);
             }
-
-            return Ok(result.Errors);
+            return NotFound("Prisiregistruoti nepavyko");
         }
         [Authorize]
         [HttpGet("getMe")]
         public async Task<IActionResult> GetMe()
         {
-            var userName = User.FindFirst("email")?.Value;
-            return Ok(new { userName });
-        }
-        
-        class JwtResponse
-        {
-            public string Jwt { get; set; }
+            var userName = User.Identity.Name;
+            var response = await accountService.GetMe(userName);
+            return Ok(response);
         }
     }
 }

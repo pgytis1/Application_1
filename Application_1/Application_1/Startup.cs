@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Http;
+using Application_1.Services;
+using Application_1.IServices;
 
 namespace Application_1
 {
@@ -78,8 +80,9 @@ namespace Application_1
             });
 
             services.AddCors();
-
             services.AddMvc();
+
+            services.AddTransient<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
