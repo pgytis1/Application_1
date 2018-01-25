@@ -22,6 +22,13 @@ export const reducer = (state: m.State = initialState, action: m.ActionTypes): m
                 userName: null,
                 id: null
             };
+        case m.LOGOUT:
+            return {
+                ...state,
+                id: null,
+                userName: null,
+                error: null
+            };
         default:
             return state;
     }

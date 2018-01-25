@@ -20,8 +20,17 @@ function* watchLogin() {
     yield takeEvery(m.LOGIN, login);
 }
 
+function logout(action: m.LogoutAction) {
+    security.setToken('');
+}
+
+function* watchLogout() {
+    yield takeEvery(m.LOGOUT, logout);
+}
+
 export function* rootSaga() {
     yield all([
-        watchLogin()
+        watchLogin(),
+        watchLogout()
     ]);
 }

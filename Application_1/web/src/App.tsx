@@ -50,6 +50,7 @@ class App extends React.Component<Props> {
           </Router> */}
         <Layout>
           <LoginPage />
+          {/* <RecipesPage /> */}
         </Layout>
 
       </Provider>

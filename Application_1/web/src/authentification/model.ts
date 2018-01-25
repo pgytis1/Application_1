@@ -12,6 +12,7 @@ export interface State {
 export const LOGIN = 'auth/LOGIN';
 export const LOGIN_SUCESS = 'auth/LOGIN_SUCESS';
 export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
+export const LOGOUT = 'auth/LOGOUT';
 
 // Actions
 
@@ -30,7 +31,11 @@ export interface LoginFailureAction {
     payload: { error: string };
 }
 
-export type ActionTypes = LoginAction | LoginSuccessAction | LoginFailureAction;
+export interface LogoutAction {
+    type: typeof LOGOUT;
+}
+
+export type ActionTypes = LoginAction | LoginSuccessAction | LoginFailureAction | LogoutAction;
 
 // Actions creators
 
@@ -47,6 +52,9 @@ export const actions = {
         type: LOGIN_FAILURE,
         payload: { error }
     }),
+    logout: (): LogoutAction => ({
+        type: LOGOUT
+    })
 };
 
 // Selectors

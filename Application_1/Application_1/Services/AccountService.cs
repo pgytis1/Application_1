@@ -1,4 +1,7 @@
 ﻿using Application_1.DTO.Account;
+using Application_1.DTO.Account.GetMe;
+using Application_1.DTO.Account.Login;
+using Application_1.DTO.Account.Register;
 using Application_1.IServices;
 using Application_1.Models;
 using Microsoft.AspNetCore.Identity;
@@ -30,13 +33,13 @@ namespace Application_1.Services
             this.db = db;
         }
 
-        public async Task<JwtResponse> Login(LoginRequestModel model)
+        public async Task<LoginResponseModel> Login(LoginRequestModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
             if (result.Succeeded)
             {
                 var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == model.Email);
-                return new JwtResponse { Jwt = BuildToken(user) };
+                return new LoginResponseModel { Jwt = BuildToken(user) };
             }
 
             return null;
@@ -62,14 +65,14 @@ namespace Application_1.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<JwtResponse> Register(RegisterRequestModel model)
+        public async Task<RegisterResponseModel> Register(RegisterRequestModel model)
         {
             var user = new User { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return new JwtResponse { Jwt = BuildToken(user) };
+                return new RegisterResponseModel { Jwt = BuildToken(user) };
             }
 
             return null;

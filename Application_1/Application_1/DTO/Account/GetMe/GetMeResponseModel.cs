@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Application_1.DTO.Account
+namespace Application_1.DTO.Account.GetMe
 {
     public class GetMeResponseModel
     {

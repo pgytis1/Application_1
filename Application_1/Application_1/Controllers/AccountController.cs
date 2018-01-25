@@ -1,4 +1,6 @@
 ﻿using Application_1.DTO.Account;
+using Application_1.DTO.Account.Login;
+using Application_1.DTO.Account.Register;
 using Application_1.IServices;
 using Application_1.Models;
 using Microsoft.AspNetCore.Authorization;
