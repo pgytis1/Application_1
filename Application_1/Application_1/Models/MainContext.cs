@@ -21,5 +21,10 @@ namespace Application_1.Models
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<MealProduct> MealProducts { get; set; }
+        public DbSet<MealRecipe> MealRecipes { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<RecipeProduct> RecipeProducts { get; set; }
     }
 }

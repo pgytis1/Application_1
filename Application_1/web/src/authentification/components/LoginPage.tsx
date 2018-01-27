@@ -59,7 +59,7 @@ class LoginPage extends React.Component<Props, OwnState> {
         const { classes, error } = this.props;
         return (
             <Grid container={true} alignItems="center" justify="center">
-                <Grid item={true} xs={10} sm={6} md={4} >
+                <Grid item={true} xs={10} sm={6} md={4} lg={3}>
                     <Card className={classes.card} raised={true} >
                         <CardContent>
                             <Typography align="center"><b>Prisijungimas</b></Typography>
@@ -83,7 +83,7 @@ class LoginPage extends React.Component<Props, OwnState> {
                                 margin="normal"
                                 fullWidth={true}
                                 error={error ? true : false}
-                                helperText={error}                               
+                                helperText={error}
                             />
                         </CardContent>
                         <CardActions className={classes.cardActions}>

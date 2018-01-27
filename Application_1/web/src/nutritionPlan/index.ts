@@ -1,4 +1,4 @@
-export { default as RecipesPage } from './components/RecipesPage';
+export { default as NutritionPlanPage } from './components/NutritionPlanPage';
 export { State, ActionTypes, actions, selectors } from './model';
 // export * from './sagas';
 export * from './reducer';

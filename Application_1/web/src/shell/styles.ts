@@ -10,7 +10,7 @@ export const layoutStyles = (theme: Theme) => ({
         width: '100%',
         height: '100%',
         zIndex: 1,
-        overflow: 'hidden' as any,
+        overflowX: 'hidden' as any,
     },
     flex: {
         flex: 1,
