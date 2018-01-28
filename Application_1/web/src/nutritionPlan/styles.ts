@@ -1,5 +1,6 @@
 import deepOrange from 'material-ui/colors/deepOrange';
 import { Theme, WithStyles } from 'material-ui/styles';
+import green from 'material-ui/colors/green';
 
 type DaysNavStyles = 'button' | 'avatar';
 export type DaysNavWithStyles = WithStyles<DaysNavStyles>;
@@ -32,5 +33,43 @@ export const nutritionPlanStyles = (theme: Theme) => ({
     alignCenter: {
         textAlign: 'center',
         marginTop: 10
+    },
+});
+
+type DayPlanStyles = 'root' | 'card' | 'title' | 'leftIcon' | 'button' | 'purpleAvatar';
+export type DayPlanWithStyles = WithStyles<DayPlanStyles>;
+export const dayPlanStyles = (theme: Theme) => ({
+    root: {
+        width: '100%',
+        paddingRight: '30px'
+    },
+    card: {
+        minWidth: 275,
+    },
+    title: {
+        marginBottom: 16,
+        fontSize: 14,
+        color: theme.palette.text.secondary,
+    },
+    button: {
+        color: '#fff',
+        backgroundColor: green[500],
+    },
+    leftIcon: {
+        marginLeft: theme.spacing.unit,
+    },
+    purpleAvatar: {
+        backgroundColor: '#3f51b5',
+    }
+});
+
+type RecipeStyles = 'appBar' | 'flex';
+export type RecipeWithStyles = WithStyles<RecipeStyles>;
+export const recipeStyles = () => ({
+    appBar: {
+        position: 'relative' as any,
+    },
+    flex: {
+        flex: 1,
     },
 });
