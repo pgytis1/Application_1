@@ -1,16 +1,20 @@
 import { RootState } from '../store';
+import { Day } from '../model';
 
 // Model
 
 export interface State {
     error: string | null;
+    days: Day[];
 }
 
 // Action types
 
-export const INIT_START = 'programos/prevencines/selected/INIT_START';
-export const INIT_SUCCESS = 'programos/prevencines/selected/INIT_SUCCESS';
-export const INIT_FAILURE = 'programos/prevencines/selected/INIT_FAILURE';
+export const INIT_START = 'nutritionPlan/INIT_START';
+export const INIT_SUCCESS = 'nutritionPlan/INIT_SUCCESS';
+export const INIT_FAILURE = 'nutritionPlan/INIT_FAILURE';
+export const ADD_DAY = 'nutritionPlan/ADD_DAY';
+export const CREATE_MEALS = 'nutritionPlan/CREATE_MEALS';
 
 // Actions
 
@@ -26,7 +30,17 @@ export interface InitFailureAction {
     payload: Error;
 }
 
-export type ActionTypes = InitStartAction | InitSuccessAction | InitFailureAction;
+export interface AddDayAction {
+    type: typeof ADD_DAY;
+}
+
+export interface CreateMealsAction {
+    type: typeof CREATE_MEALS;
+}
+
+export type ActionTypes =
+    InitStartAction | InitSuccessAction | InitFailureAction |
+    AddDayAction | CreateMealsAction;
 
 // Action creators
 
@@ -42,10 +56,16 @@ export const actions = {
         type: INIT_FAILURE,
         payload: error
     }),
+    addDay: (): AddDayAction => ({
+        type: ADD_DAY
+    }),
+    createMealsAction: (): CreateMealsAction => ({
+        type: CREATE_MEALS
+    })
 };
 
 // Selectors
 
 export const selectors = {
-    getOwn: (state: RootState) => state.recipes
+    getOwn: (state: RootState) => state.nutritionPlan
 };

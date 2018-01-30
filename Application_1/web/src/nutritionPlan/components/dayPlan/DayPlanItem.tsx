@@ -46,12 +46,9 @@ class DayPlanItem extends React.Component<Props, OwnState> {
                             {dish.name}
                         </Typography>
                         <Typography component="p">
-                            <div>
-                                <b>Kiekis: </b>{dish.grams} gram.
-                        </div>
-                            <div>
-                                <b>Kalorijų: </b>{dish.kcal} kcal
-                        </div>
+                            <b>Kiekis: </b>{dish.grams} gram.
+                            <br />
+                            <b>Kalorijų: </b>{dish.kcal} kcal
                         </Typography>
 
                     </CardContent>

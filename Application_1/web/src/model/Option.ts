@@ -1,4 +1,4 @@
 export interface Option<T> {
-    id: T;
-    name: string;
+    id: number;
+    name: T;
 }

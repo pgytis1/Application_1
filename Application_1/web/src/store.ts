@@ -5,7 +5,7 @@ import { State as AuthState, ActionTypes as AuthActionTypes } from './authentifi
 
 export type RootState = {
     auth: AuthState,
-    recipes: NutritionPlanState
+    nutritionPlan: NutritionPlanState
 };
 
 export type Store = Store<RootState>;

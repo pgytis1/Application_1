@@ -9,7 +9,7 @@ const Penktadienis: Days = 'Penktadienis';
 const Sestadienis: Days = 'Šeštadienis';
 const Sekmadienis: Days = 'Sekmadienis';
 
-const options: Option<number>[] = [
+const options: Option<Days>[] = [
     { id: 1, name: Pirmadienis },
     { id: 2, name: Antradienis },
     { id: 3, name: Treciadienis },

@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { connect, Provider } from 'react-redux';
+import { Route, Switch } from 'react-router';
+import { ConnectedRouter } from 'react-router-redux';
 import { Store } from 'redux';
 import { RootState } from './store';
+import { history } from './configureStore';
 import * as auth from './authentification';
 import './App.css';
-// import LoginPage from './authentification/components/LoginPage';
+import LoginPage from './authentification/components/LoginPage';
 import NutritionPlanPage from './nutritionPlan/components/NutritionPlanPage';
 import Layout from './shell/components/Layout';
 
@@ -20,8 +23,6 @@ type DispatchProps = typeof auth.actions;
 
 type Props = OwnProps & DispatchProps;
 
-// const customHistory = createBrowserHistory();
-
 class App extends React.Component<Props> {
   componentDidMount() {
     // this.props.login('e', 'ee');
@@ -30,29 +31,14 @@ class App extends React.Component<Props> {
   render() {
     return (
       <Provider store={this.props.store}>
-
-        {/* <Router history={customHistory}>
+        <ConnectedRouter history={history}>
+          <Layout>
             <Switch>
-            
-            <Route path="/login" component={LoginPage} />
-            
-            <PrivateRoute>
-            <Layout>
-            <Switch>
-            <Route path="/doctor" component={DoctorPage} />
-            <Route path="/admin" component={AdminPage} />
-            <Route path="/patient" component={PatientContainer} />
+              <Route exact={true} path="/login" component={LoginPage} />
+              <Route exact={true} path="/" component={NutritionPlanPage} />
             </Switch>
-            </Layout>
-            </PrivateRoute>
-            
-            </Switch>
-          </Router> */}
-        <Layout>
-          {/* <LoginPage /> */}
-          <NutritionPlanPage />
-        </Layout>
-
+          </Layout>
+        </ConnectedRouter>
       </Provider>
     );
   }

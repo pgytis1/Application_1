@@ -39,12 +39,9 @@ class Recipe extends React.Component<Props> {
                                                 {dish.name}
                                             </Typography>
                                             <Typography component="p">
-                                                <div>
-                                                    <b>Kiekis: </b>{dish.grams} gram.
-                                            </div>
-                                                <div>
-                                                    <b>Kalorijų: </b>{dish.kcal} kcal
-                                            </div>
+                                                <b>Kiekis: </b>{dish.grams} gram.
+                                                <br />
+                                                <b>Kalorijų: </b>{dish.kcal} kcal
                                             </Typography>
 
                                         </CardContent>
